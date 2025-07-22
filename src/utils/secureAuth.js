@@ -137,7 +137,7 @@ class SecureTokenManager {
     }
     
     try {
-      const response = await fetch(`/api/auth/refresh`, {
+      const response = await fetch(buildApiUrl('/api/auth/refresh'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -164,7 +164,8 @@ export const secureTokenManager = new SecureTokenManager();
 
 // Hook para usar el token manager en componentes React
 import { useState, useEffect } from 'react';
-
+import { jwtDecode } from 'jwt-decode';
+import { buildApiUrl } from '../config/api.js';
 import { tokenManager } from '../config/security.js';
 
 export const useSecureAuth = () => {
@@ -188,7 +189,7 @@ export const useSecureAuth = () => {
   const login = async (credentials) => {
     // Implementar login con manejo seguro
     try {
-      const response = await fetch(`/api/auth/login`, {
+      const response = await fetch(buildApiUrl('/api/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -214,7 +215,7 @@ export const useSecureAuth = () => {
     try {
       const currentToken = tokenManager.get();
       if (currentToken) {
-        await fetch(`/api/auth/logout`, {
+        await fetch(buildApiUrl('/api/auth/logout'), {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${currentToken}`,

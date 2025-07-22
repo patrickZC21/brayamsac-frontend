@@ -1,6 +1,7 @@
 import { Edit, Trash2, Check, X, Search } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { buildApiUrl } from '../../../config/api.js';
 
 import ConfirmModal from "../../ui/ConfirmModal";
 
@@ -62,7 +63,7 @@ const FechasPorSubalmacen = ({
         throw new Error('No se pudieron obtener IDs válidos de las fechas seleccionadas');
       }
       
-              const response = await fetch(`/api/exportar/fechas-excel?fechas=${idsString}&subalmacen=${subalmacenId}`, {
+              const response = await fetch(buildApiUrl(`/api/exportar/fechas-excel?fechas=${idsString}&subalmacen=${subalmacenId}`), {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

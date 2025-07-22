@@ -13,6 +13,7 @@ import Toast from "../ui/Toast";
 import logo from "../../assets/img/dashboard.png";
 
 import { tokenManager } from "../../config/security.js";
+import { buildApiUrl } from '../../config/api.js';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Sidebar() {
     try {
       const currentToken = tokenManager.get();
       if (currentToken) {
-        const response = await fetch(`/api/auth/logout`, {
+        const response = await fetch(buildApiUrl('/api/auth/logout'), {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${currentToken}`,

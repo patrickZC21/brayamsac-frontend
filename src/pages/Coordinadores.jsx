@@ -1,5 +1,6 @@
 import { UserPlus, Search } from 'lucide-react';
 import React, { useState, useMemo } from 'react';
+import { buildApiUrl } from '../config/api.js';
 
 import useAutoLogout from '../hooks/useAutoLogout';
 import useCoordinadoresPage from '../hooks/useCoordinadoresPage';
@@ -169,7 +170,7 @@ export default function Coordinadores() {
                 await handleUpdateCoordinador(data.id, data);
                 if (data.almacenId && data.subalmacenIds && data.subalmacenIds.length > 0) {
                   // Eliminar todas las asignaciones actuales antes de asignar las nuevas
-                  await fetch(`/api/usuario-almacenes/usuario/${data.id}`, {
+                  await fetch(buildApiUrl(`/api/usuario-almacenes/usuario/${data.id}`), {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                   });
