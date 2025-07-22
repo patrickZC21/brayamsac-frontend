@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getAlmacenNombre, getSubalmacenNombre, getCoordinadorNombre } from './helpers';
-import TrabajadoresTable from './TrabajadoresTable';
+import TrabajadoresTable from './Trabajadorestable';
 
 export default function TrabajadoresTableContainer({
   loading,
