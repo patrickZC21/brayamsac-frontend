@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { buildApiUrl } from '../config/api';
 import useAutoLogout from "../hooks/useAutoLogout.js";
+import { logEstadoSesion, verificarSesionActiva } from "../utils/sessionUtils.js";
 
 import DashboardCards from "@/components/charts/DashboardCards.jsx";
 import HorasExtrasChart from "@/components/charts/HorasExtrasChart.jsx";
@@ -29,14 +30,18 @@ export default function Dashboard() {
   const [loadingCards, setLoadingCards] = useState(true);
 
   useEffect(() => {
+    // Registrar el estado de la sesión al cargar el componente
+    logEstadoSesion();
+    
     const validarToken = async () => {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        console.warn("Token no encontrado. Redirigiendo al login.");
+      // Verificar si hay una sesión activa
+      if (!verificarSesionActiva()) {
+        console.warn("Sesión no activa. Redirigiendo al login.");
         navigate("/");
         return;
       }
+      
+      const token = localStorage.getItem("token");
 
       try {
         const res = await fetch(buildApiUrl('/api/auth/validar'), {

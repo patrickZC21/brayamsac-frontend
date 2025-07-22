@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { buildApiUrl } from '../config/api';
+import { limpiarSesion } from '../utils/sessionUtils';
 
 export const useTokenExpiration = () => {
   const navigate = useNavigate();
@@ -21,9 +22,8 @@ export const useTokenExpiration = () => {
     } catch (error) {
       console.error("Error al cerrar sesión automáticamente:", error);
     } finally {
-      localStorage.removeItem("token");
-      localStorage.removeItem("nombre");
-      localStorage.removeItem("rol");
+      // Usar la función centralizada para limpiar la sesión
+      limpiarSesion();
       navigate("/loginSistema");
     }
   };

@@ -1,5 +1,6 @@
 // Hook para manejar logout automático al cerrar pestaña/navegador
 import { useEffect } from 'react';
+import { verificarSesionActiva } from '../utils/sessionUtils';
 
 export const useAutoLogout = () => {
   useEffect(() => {
@@ -34,15 +35,17 @@ export const useAutoLogout = () => {
     };
 
     const handleBeforeUnload = (_event) => {
-      const token = localStorage.getItem("token");
-      if (token) {
+      // Verificar si hay una sesión activa antes de intentar cerrar sesión
+      if (verificarSesionActiva()) {
+        const token = localStorage.getItem("token");
         performLogout(token);
       }
     };
 
     const handleUnload = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
+      // Verificar si hay una sesión activa antes de intentar cerrar sesión
+      if (verificarSesionActiva()) {
+        const token = localStorage.getItem("token");
         performLogout(token);
       }
     };

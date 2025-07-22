@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import fondo from "../assets/img/inicio.jpg";
 import logo from "../assets/img/logoinicio.png";
 import { buildApiUrl, tokenManager, logger } from "../config/security.js";
+import { limpiarSesion } from "../utils/sessionUtils.js";
 
 export default function LoginSistema() {
   const [correo, setCorreo] = useState("");
@@ -17,6 +18,11 @@ export default function LoginSistema() {
       navigate("/dashboard");
     }
   }, [navigate]);
+  
+  // Limpiar cualquier sesión anterior al montar el componente
+  useEffect(() => {
+    limpiarSesion();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +52,10 @@ export default function LoginSistema() {
       const rolesPermitidos = ["RRHH", "ADMINISTRACION", 1, 2];
 
       if (rolesPermitidos.includes(rol)) {
+        // Limpiar cualquier sesión anterior antes de establecer la nueva
+        limpiarSesion();
+        
+        // Establecer nueva sesión
         tokenManager.set(data.token);
         if (typeof Storage !== 'undefined') {
           localStorage.setItem("nombre", nombre);
