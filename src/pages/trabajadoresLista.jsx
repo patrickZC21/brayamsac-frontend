@@ -9,7 +9,7 @@ import {
   editarTrabajador,
   toggleActivoTrabajador,
   eliminarTrabajador
-} from '../services/trabajadoresService'
+} from '../services/TrabajadoresService'
 
 import { TrabajadoresTableContainer, TrabajadorModal } from '@/components/features/trabajadores'
 import { MainLayout } from '@/components/layout'
