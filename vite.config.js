@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => ({
   },
   server: {
     proxy: mode === 'development' ? {
-      '/api': 'http://54.233.86.195:3000'
+      '/api': 'https://brayamsac-backend.onrender.com'
     } : undefined
   }
 }))
