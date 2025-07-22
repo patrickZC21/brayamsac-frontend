@@ -180,7 +180,7 @@ export default function Coordinadores() {
                   }));
                   await props.handleAsignarAlmacenes({ usuario_id: data.id, almacenes });
                 }
-                const res = await fetch('/api/usuario-almacenes', {
+                const res = await fetch(buildApiUrl('/api/usuario-almacenes'), {
                   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
                 if (res.ok && typeof props.setUsuarioAlmacenes === 'function') {

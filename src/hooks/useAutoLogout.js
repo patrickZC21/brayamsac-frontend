@@ -1,6 +1,7 @@
 // Hook para manejar logout automático al cerrar pestaña/navegador
 import { useEffect } from 'react';
 import { verificarSesionActiva } from '../utils/sessionUtils';
+import { buildApiUrl } from '../config/api.js';
 
 export const useAutoLogout = () => {
   useEffect(() => {
@@ -9,7 +10,7 @@ export const useAutoLogout = () => {
       
       try {
         // Intentar con fetch primero (más confiable)
-        await fetch("/api/auth/logout", {
+        await fetch(buildApiUrl("/api/auth/logout"), {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -25,7 +26,7 @@ export const useAutoLogout = () => {
             source: 'beforeunload' 
           });
           navigator.sendBeacon(
-            "/api/auth/logout-beacon",
+            buildApiUrl("/api/auth/logout-beacon"),
             new Blob([logoutData], { type: 'application/json' })
           );
         } catch (beaconError) {

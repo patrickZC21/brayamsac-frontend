@@ -6,6 +6,7 @@ import {
 } from 'chart.js';
 import { useEffect, useState } from "react";
 import { Doughnut } from 'react-chartjs-2';
+import { buildApiUrl } from '../../config/api.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,7 +19,7 @@ export default function HorasExtrasChart() {
       setLoading(true);
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("/api/dashboard/horas-extras", {
+        const res = await fetch(buildApiUrl("/api/dashboard/horas-extras"), {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Error al obtener ranking de horas extra");

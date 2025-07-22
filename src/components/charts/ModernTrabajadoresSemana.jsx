@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { buildApiUrl } from '../../config/api.js';
 
 export default function ModernTrabajadoresSemana() {
   const [trabajadores, setTrabajadores] = useState([]);
@@ -9,7 +10,7 @@ export default function ModernTrabajadoresSemana() {
       setLoading(true);
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("/api/dashboard/trabajadores-semana", {
+        const res = await fetch(buildApiUrl("/api/dashboard/trabajadores-semana"), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
