@@ -5,13 +5,8 @@ import { API_BASE_URL } from './api.js';
 
 // Helper para construir URLs con soporte para query parameters
 export const buildApiUrl = (endpoint, params = null) => {
-  let url = endpoint;
-  
-  // En desarrollo, usar rutas relativas para el proxy de Vite
-  // En producción, usar la URL completa
-  if (!import.meta.env.DEV) {
-    url = `${API_BASE_URL}${endpoint}`;
-  }
+  // Siempre usar la URL completa del backend para evitar errores de CORS
+  let url = `${API_BASE_URL}${endpoint}`;
   
   if (params && typeof params === 'object') {
     const queryString = new URLSearchParams();
