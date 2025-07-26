@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import fondo from "../assets/img/inicio.jpg";
 import logo from "../assets/img/logoinicio.png";
-import { buildApiUrl, tokenManager, logger } from "../config/security.js";
+import { buildApiUrl } from "../config/api.js";
+import { tokenManager, logger } from "../config/security.js";
 import { limpiarSesion } from "../utils/sessionUtils.js";
 
 export default function LoginSistema() {

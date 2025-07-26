@@ -1,4 +1,5 @@
-import { buildApiUrl, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { logger } from '../config/security.js';
 
 const API_URL = buildApiUrl('/api/trabajadores');
 

@@ -1,4 +1,5 @@
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 export const crearRotacionTrabajador = async ({ trabajador_id, subalmacen_id, fecha }, token) => {
   return fetch(buildApiUrl('/api/rotaciones'), {

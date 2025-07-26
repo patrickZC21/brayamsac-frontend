@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 // Cache simple en memoria para evitar consultas repetidas
 const cache = new Map();

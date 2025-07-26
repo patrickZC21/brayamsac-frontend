@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 export default function useRRHHPage() {
   const [rrhh, setRRHH] = useState([]);

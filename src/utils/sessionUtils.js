@@ -5,6 +5,8 @@
  * de usuario, verificar tokens, y manejar el cierre de sesión.
  */
 
+import { buildApiUrl } from '../config/api.js';
+
 /**
  * Verifica si hay una sesión activa
  * @returns {boolean} - true si hay una sesión activa, false en caso contrario
@@ -90,7 +92,6 @@ export const validarTokenConBackend = async () => {
   
   try {
     // Usar la configuración centralizada de API
-    const { buildApiUrl } = await import('../config/api.js');
     const apiUrl = buildApiUrl('/api/auth/validar');
     
     const response = await fetch(apiUrl, {

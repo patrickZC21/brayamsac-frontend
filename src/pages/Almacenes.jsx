@@ -2,7 +2,8 @@ import { Plus, X, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 import { useDeleteAlmacen } from '../hooks/useDeleteAlmacen';
 import { getAlmacenes, postAlmacen } from '../services/almacen.service';
 

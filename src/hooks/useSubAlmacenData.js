@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 export function useSubAlmacenData(id, navigate) {
   const [subalmacenes, setSubalmacenes] = useState([]);

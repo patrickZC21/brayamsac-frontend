@@ -1,5 +1,6 @@
 // src/services/almacen.service.js
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 // Obtener todos los almacenes
 export const getAlmacenes = async (token) => {

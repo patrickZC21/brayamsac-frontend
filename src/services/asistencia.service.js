@@ -1,4 +1,5 @@
-import { buildApiUrl, tokenManager, logger } from '../config/security.js';
+import { buildApiUrl } from '../config/api.js';
+import { tokenManager, logger } from '../config/security.js';
 
 export const eliminarAsistencia = async (id, token) => {
   logger.log('[eliminarAsistencia] Token enviado:', token);
