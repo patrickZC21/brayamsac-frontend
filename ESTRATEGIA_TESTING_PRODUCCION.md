@@ -95,7 +95,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import fetch from 'node-fetch';
 
-const API_BASE = process.env.API_URL || 'http://localhost:3000';
+const API_BASE = process.env.API_URL || 'https://brayamsac-backend.onrender.com';
 
 describe('API Critical Tests', () => {
   let authToken = '';

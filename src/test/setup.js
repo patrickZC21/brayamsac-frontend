@@ -31,8 +31,8 @@ global.fetch = vi.fn();
 // Mock de window.location
 delete window.location;
 window.location = {
-      href: 'http://54.233.86.195:3000',
-    origin: 'http://54.233.86.195:3000',
+  href: 'https://brayamsac-frontend.vercel.app',
+  origin: 'https://brayamsac-frontend.vercel.app',
   pathname: '/',
   search: '',
   hash: '',

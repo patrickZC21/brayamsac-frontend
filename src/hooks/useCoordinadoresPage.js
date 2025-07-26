@@ -158,7 +158,7 @@ export default function useCoordinadoresPage() {
       
       // Manejo específico de errores
       if (err.message.includes('Failed to fetch') || err.name === 'TypeError') {
-        alert('❌ Error de conexión: No se pudo conectar con el servidor. Verifica que el backend esté funcionando en http://54.233.86.195:3000');
+        alert('❌ Error de conexión: No se pudo conectar con el servidor. Verifica que el backend esté funcionando correctamente.');
       } else if (err.message.includes('404')) {
         alert('❌ Error: El servicio de asignación de almacenes no está disponible.');
       } else if (err.message.includes('401')) {

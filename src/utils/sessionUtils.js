@@ -89,12 +89,9 @@ export const validarTokenConBackend = async () => {
   }
   
   try {
-    // Construir la URL de la API
-    let apiUrl = '/api/auth/validar';
-    if (window.location.hostname !== 'localhost') {
-      const baseUrl = window.location.origin;
-      apiUrl = `${baseUrl}${apiUrl}`;
-    }
+    // Usar la configuración centralizada de API
+    const { buildApiUrl } = await import('../config/api.js');
+    const apiUrl = buildApiUrl('/api/auth/validar');
     
     const response = await fetch(apiUrl, {
       headers: { Authorization: `Bearer ${token}` }

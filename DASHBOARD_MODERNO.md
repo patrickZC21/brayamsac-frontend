@@ -68,7 +68,7 @@
 ## 🔧 Uso
 
 ### **Acceso directo:**
-- URL principal: `http://localhost:5173/dashboard`
+- URL principal: `https://brayamsac-frontend.vercel.app/dashboard`
 - El dashboard moderno es ahora la versión principal del sistema
 
 ### **Navegación:**

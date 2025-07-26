@@ -1,35 +1,51 @@
-// Configuración centralizada para el API
-// Eliminar este archivo si ya no es necesario, o importar desde api.js si se requiere
+/**
+ * Configuración de seguridad para el frontend
+ * Funciones específicas para validación y protección
+ */
 
-import { API_BASE_URL } from './api.js';
-
-// Helper para construir URLs con soporte para query parameters
-export const buildApiUrl = (endpoint, params = null) => {
-  // Siempre usar la URL completa del backend para evitar errores de CORS
-  let url = `${API_BASE_URL}${endpoint}`;
-  
-  if (params && typeof params === 'object') {
-    const queryString = new URLSearchParams();
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        queryString.append(key, value);
-      }
-    });
-    
-    const queryStr = queryString.toString();
-    if (queryStr) {
-      url += `?${queryStr}`;
-    }
-  }
-  
-  return url;
+// Validar que estamos en un entorno seguro
+export const isSecureContext = () => {
+  return window.location.protocol === 'https:' || 
+         window.location.hostname === 'localhost' ||
+         window.location.hostname === '127.0.0.1';
 };
 
-// Token manager seguro
+// Validar URLs de API para prevenir ataques
+export const isValidApiUrl = (url) => {
+  try {
+    const urlObj = new URL(url);
+    
+    // En producción, solo permitir HTTPS
+    if (import.meta.env.PROD && urlObj.protocol !== 'https:') {
+      console.warn('⚠️ URL de API no segura en producción:', url);
+      return false;
+    }
+    
+    // Verificar que no sea una IP privada en producción
+    if (import.meta.env.PROD && /^\d+\.\d+\.\d+\.\d+$/.test(urlObj.hostname)) {
+      console.warn('⚠️ IP directa detectada en producción:', url);
+      return false;
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('❌ URL de API inválida:', url, error);
+    return false;
+  }
+};
+
+// Token manager seguro con validaciones adicionales
 export const tokenManager = {
   set: (token) => {
     if (token && typeof token === 'string' && token.trim()) {
       try {
+        // Validar formato básico de JWT
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+          console.warn('⚠️ Token con formato inválido');
+          return false;
+        }
+        
         localStorage.setItem('token', token);
         return true;
       } catch (error) {
@@ -101,4 +117,49 @@ export const logger = {
       );
     }
   }
+};
+
+// Limpiar datos sensibles del almacenamiento
+export const clearSensitiveData = () => {
+  const sensitiveKeys = ['token', 'password', 'secret', 'auth'];
+  
+  sensitiveKeys.forEach(key => {
+    try {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    } catch (error) {
+      console.error(`Error al limpiar ${key}:`, error);
+    }
+  });
+};
+
+// Headers de seguridad para requests
+export const getSecureHeaders = (includeAuth = false) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  };
+  
+  if (includeAuth) {
+    const token = tokenManager.get();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  
+  return headers;
+};
+
+// Validar entorno de desarrollo vs producción
+export const validateEnvironment = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
+  if (import.meta.env.PROD) {
+    if (!apiUrl || !apiUrl.startsWith('https://')) {
+      console.error('❌ CONFIGURACIÓN INSEGURA: API URL debe usar HTTPS en producción');
+      return false;
+    }
+  }
+  
+  return isValidApiUrl(apiUrl);
 };

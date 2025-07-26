@@ -129,7 +129,7 @@ npm run test:coverage
 
 ```env
 # API Configuration
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://brayamsac-backend.onrender.com
 VITE_API_TIMEOUT=10000
 
 # Security
@@ -146,7 +146,7 @@ VITE_ENABLE_PERFORMANCE_MONITORING=true
 ### Desarrollo
 ```bash
 npm run dev
-# Servidor en http://localhost:5173
+# Servidor en http://localhost:5173 (desarrollo local del frontend)
 ```
 
 ### Producción
